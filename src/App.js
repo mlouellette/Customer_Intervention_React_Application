@@ -27,7 +27,7 @@ function App() {
 
   const login = () => {
     Axios.post("https://localhost:3000/login", {
-      username: username,
+      email: email,
       password: password,
     }).then((response) => {
       if (!response.data.auth) {
