@@ -10,9 +10,50 @@ import React from 'react'
 import './App.css'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Axios from "axios";
 
 
 function App() {
+
+  const [emailReg, setEmailRed] = useState("");
+  const [passwordReg, setPasswordReg] = useState("");
+
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const [loginStatus, setLoginStatus] = useState(false);
+
+  Axios.defaults.withCredentials = true;
+
+  const login = () => {
+    Axios.post("https://localhost:3000/login", {
+      username: username,
+      password: password,
+    }).then((response) => {
+      if (!response.data.auth) {
+        setLoginStatus(false);
+      } else {
+        console.log(response.data);
+        localStorage.setItem("token", response.data.token);
+        setLoginStatus(true);
+      }
+    });
+    
+  };
+
+  const emailAuthenticated = () => {
+    Axios.get("https://localhost:3000/isEmailAuth", {
+      headers: {
+        "x-acess-token": localStorage.getItem("token")
+
+      }
+  }).then((response) => {
+    console.log(response);
+  });
+
+  }
+
+
   return (
     <Container id="main-container" className="d-grid h-100">
       <Form id="signInForm" className="text-center w-50 formBackground">
@@ -35,10 +76,14 @@ function App() {
           </Form.Group>
 
            <div className="d-grid">
-         <Button variant="primary" onClick="" className="btn-danger" size="lg">Sign in</Button>
+         <Button variant="primary" onClick={login} className="btn-danger" size="lg">Sign in</Button>
         </div>
-        <p className="mt-5 text-muted">&copy; 2022-2023</p>
 
+        {loginStatus && <button onclick={emailAuthenticated}>Check if Authenticated</button>}
+
+        <p className="mt-5 text-muted">&copy; 2022-2023</p>
+        
+        
         </Form>
        
     </Container>
