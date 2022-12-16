@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, Link, Switch } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 
@@ -10,6 +10,7 @@ import Login from "./components/login.component";
 import Home from "./components/home.component";
 import Profile from "./components/profile.component";
 import BoardUser from "./components/board-user.component";
+import NewIntervention from "./components/newIntervention.component";
 
 
 class App extends Component {
@@ -58,7 +59,7 @@ class App extends Component {
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/user" element={<BoardUser />} />
-
+            <Route path="/newIntervention" element={<NewIntervention />} />
           </Routes>
         </div>
       </div>

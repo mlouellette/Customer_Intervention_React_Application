@@ -1,156 +1,121 @@
+
+import Table from "./Table.js";
 import React, { Component } from "react";
-import Form from "react-validation/build/form";
-import Input from "react-validation/build/input";
-import CheckButton from "react-validation/build/button";
 
-import AuthService from "../services/auth.service";
 
-import { withRouter } from '../common/with-router';
+  const token = localStorage.getItem("email");
+  console.log(token)
+  const headerRequest = {
 
-const required = value => {
-  if (!value) {
-    return (
-      <div className="alert alert-danger" role="alert">
-        This field is required!
-      </div>
-    );
-  }
-};
+    headers: {
+        Authorization:  `Bearer ${token}`,
+      },
+    };
 
-class Login extends Component {
+// import Table from "./components/Table.";
+
+export default class Login extends Component {
   constructor(props) {
     super(props);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.onChangeUsername = this.onChangeUsername.bind(this);
-    this.onChangePassword = this.onChangePassword.bind(this);
 
     this.state = {
-      username: "",
-      password: "",
-      loading: false,
-      message: ""
+      username: [],
+      isLoading:false,
+      isError:false,
+      
     };
+
+
   }
+ 
 
-  onChangeUsername(e) {
-    this.setState({
-      username: e.target.value
-    });
-  }
+ 
+  handleLogout(event){
+    event.preventDefault();
+    localStorage.removeItem("email");
+    window.location.href = "/";
+    };
 
-  onChangePassword(e) {
-    this.setState({
-      password: e.target.value
-    });
-  }
-
-  handleLogin(e) {
-    e.preventDefault();
-
-    this.setState({
-      message: "",
-      loading: true
-    });
-
-    this.form.validateAll();
-
-    if (this.checkBtn.context._errors.length === 0) {
-      AuthService.login(this.state.username, this.state.password).then(
-        () => {
-          this.props.router.navigate("/profile");
-          window.location.reload();
-        },
-        error => {
-          const resMessage =
-            (error.response &&
-              error.response.data &&
-              error.response.data.message) ||
-            error.message ||
-            error.toString();
-
-          this.setState({
-            loading: false,
-            message: resMessage
-          });
-        }
-      );
-    } else {
-      this.setState({
-        loading: false
-      });
-    }
-  }
 
   render() {
+             
     return (
-      <div className="col-md-12">
-        <div className="card card-container">
-          <img
-            src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-            alt="profile-img"
-            className="profile-img-card"
-          />
+        <div>
 
-          <Form
-            onSubmit={this.handleLogin}
-            ref={c => {
-              this.form = c;
-            }}
-          >
-            <div className="form-group">
-              <label htmlFor="username">Username</label>
-              <Input
-                type="text"
-                className="form-control"
-                name="username"
-                value={this.state.username}
-                onChange={this.onChangeUsername}
-                validations={[required]}
-              />
-            </div>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+              <div class="container">
+                <a class="navbar-brand" href="#">
+                  <img src="R2.png" alt="..." height="50" />
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                  <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                      <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="">
+                      <a class="nav-link" href="/newIntervention">New Intervention</a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link logOutHover" onClick={(event) => {this.handleLogout(event)}} href="/">Log Out</a>
+                    </li>
 
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <Input
-                type="password"
-                className="form-control"
-                name="password"
-                value={this.state.password}
-                onChange={this.onChangePassword}
-                validations={[required]}
-              />
-            </div>
 
-            <div className="form-group">
-              <button
-                className="btn btn-primary btn-block"
-                disabled={this.state.loading}
-              >
-                {this.state.loading && (
-                  <span className="spinner-border spinner-border-sm"></span>
-                )}
-                <span>Login</span>
-              </button>
-            </div>
-
-            {this.state.message && (
-              <div className="form-group">
-                <div className="alert alert-danger" role="alert">
-                  {this.state.message}
+                  </ul>
                 </div>
               </div>
-            )}
-            <CheckButton
-              style={{ display: "none" }}
-              ref={c => {
-                this.checkBtn = c;
-              }}
-            />
-          </Form>
-        </div>
-      </div>
-    );
-  }
-}
+            </nav>
+             <Table />
+   
 
-export default withRouter(Login);
+
+
+
+{/* <table class="table table-striped table-dark">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Building</th>
+      <th scope="col">Battery</th>
+      <th scope="col">Column</th>
+      <th scope="col">Elevator</th>
+      
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>  */}
+
+
+
+</div>
+      
+   )}  
+  }
+  
+  
+
+

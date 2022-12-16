@@ -7,6 +7,9 @@ import AuthService from "../services/auth.service";
 
 import { withRouter } from '../common/with-router';
 
+
+
+
 const required = value => {
   if (!value) {
     return (
@@ -32,6 +35,9 @@ class Login extends Component {
     };
   }
 
+  
+
+ 
   onChangeEmail(e) {
     this.setState({
       email: e.target.value
@@ -57,7 +63,7 @@ class Login extends Component {
     if (this.checkBtn.context._errors.length === 0) {
       AuthService.login(this.state.email, this.state.password).then(
         () => {
-          this.props.router.navigate("/profile");
+          this.props.router.navigate("/home");
           window.location.reload();
         },
         error => {

@@ -39,16 +39,22 @@ label {
 
 }
 
+.logOutHover:hover {
+  background-color: rgba(255, 0, 0, 0.5);
+}
 
-
-
+a:hover{
+  background-color: rgba(255, 255, 255, 0.5);
+}
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;900&display=swap');
 
 * {
   margin:0;
   padding:0;
-
+  font-size:20px;
+  font-style: roboto;
+  font-style: normal;
 }
 
 body {

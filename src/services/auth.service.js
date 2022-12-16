@@ -1,31 +1,32 @@
-import axios from "axios";
-
-const API_URL = "https://java-api.codeboxxtest.xyz/authenticate?email=${username}&password=${password}";
-
 class AuthService {
   login(email, password) {
-    return axios
-      .post(API_URL + "signin", {
+    return fetch("https://java-api.codeboxxtest.xyz/authenticate?email=" + email + "&password=" + password, {
         email,
         password
       })
-      .then(response => {
-        if (response.data.accessToken) {
-          localStorage.setItem("email", JSON.stringify(response.data));
+
+      .then(response => response.json())
+      .then(data => {
+
+        if (data.access_token) {
+          localStorage.setItem("email", data.access_token);
+          
         }
 
-        return response.data;
+        return data;
+        console.log(data)
+
       });
+
   }
 
   logout() {
-    localStorage.removeItem("email");
+    localStorage.removeItem("user");
+
   }
 
-
-
   getCurrentEmail() {
-    return JSON.parse(localStorage.getItem('email'));;
+    return JSON.parse(localStorage.getItem("user"));;
   }
 }
 
