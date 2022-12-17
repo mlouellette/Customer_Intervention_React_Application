@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { Navigate } from "react-router-dom";
 import AuthService from "../services/auth.service";
 
 import Form from "./Form.js";
@@ -23,14 +22,12 @@ export default class NewIntervention extends Component {
       if (!currentEmail) this.setState({ redirect: "/home" });
       this.setState({ currentEmail: currentEmail, emailReady: true })
     }
-  
+    
+    // Deletes the access token once you logout
     handleLogout(event){
         event.preventDefault();
-        console.log(localStorage.getItem('email'))
         localStorage.removeItem("email");
-        console.log(localStorage.getItem('email'))
         localStorage.setItem("email", null)
-        console.log(localStorage.getItem('email'))
         window.location.href = "/";
     };
 

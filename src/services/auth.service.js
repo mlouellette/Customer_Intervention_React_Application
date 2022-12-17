@@ -14,14 +14,14 @@ class AuthService {
         }
 
         return data;
-        console.log(data)
+        
 
       });
 
   }
 
   logout() {
-    localStorage.removeItem("user");
+    localStorage.removeItem("email");
 
   }
 

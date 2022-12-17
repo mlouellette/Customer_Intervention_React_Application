@@ -10,6 +10,7 @@ import { withRouter } from '../common/with-router';
 
 
 
+// Required Alerts for input fields
 const required = value => {
   if (!value) {
     return (
@@ -35,7 +36,7 @@ class Login extends Component {
     };
   }
 
-  
+
 
  
   onChangeEmail(e) {
@@ -96,6 +97,7 @@ class Login extends Component {
             alt="profile-img"
             
           />
+
 
           <Form
             onSubmit={this.handleLogin}

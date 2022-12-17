@@ -4,7 +4,6 @@ import React from "react";
 
 const token =localStorage.getItem("email");
 
-
 const GET_COSTUMER_URL = "https://java-api.codeboxxtest.xyz/customers/current";
 
 const requestHeader = {
@@ -13,6 +12,7 @@ const requestHeader = {
     },
 };
 
+// Get request
 const getUser = async (setUser) => {
     try {
         const res = await axios.get(GET_COSTUMER_URL, requestHeader);
@@ -23,6 +23,7 @@ const getUser = async (setUser) => {
     }
 };
 
+// Render Data to my home page table 
 const Table = () => {
     const [user, setUser] = useState([]);
     useEffect(() => {
